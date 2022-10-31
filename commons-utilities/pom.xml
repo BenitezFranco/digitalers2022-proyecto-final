@@ -9,12 +9,12 @@
 	<!-- FIXME change it to the project's website -->
 	<url>https://github.com/orobleto/commons-utilities</url>
 
-	 <parent>
-  	<groupId>com.educacionit.digitalers</groupId>
-  	<artifactId>parent</artifactId>
-  	<version>0.0.1-SNAPSHOT</version>
-  </parent>
 
+	<parent>
+		<groupId>com.educaciontit.digitalers</groupId>
+		<artifactId>parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
