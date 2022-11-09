@@ -117,11 +117,22 @@ public class PublicationController implements GenericRestController<Publication,
 		return ResponseEntity.ok(publications);
 	}
 
-	@GetMapping(value = { "/findByUserId/{id_user}" })
-	public ResponseEntity<?> findAll(@PathVariable(name = "id_user", required = true) Long id_user) {
+	@GetMapping(value = { "/findByUserId/{uuid}" })
+	public ResponseEntity<?> findAll(@PathVariable(name = "uuid", required = true) String uuid) {
 		// 
+		logger.info("credential :" + uuid);
+
+		if (uuid == null) {
+			return ResponseEntity.status(400).body(responseMessageService.getResponseMessage(MessageType.BAD_REQUEST,
+					"credential [" + uuid + "] No encontrada"));
+		}
+		User user= loginService.getUser(uuid);
+		if (user==null) {
+			return ResponseEntity.status(409).body(responseMessageService
+					.getResponseMessage(MessageType.VALIDATION_ERROR, "credential [" + uuid + "] No encontrada"));
+		}
 		
-		List<Publication> publications = publicationRepository.findByUserId(id_user);
+		List<Publication> publications = user.getPublications();
 		logger.info(publications);
 		return ResponseEntity.ok(publications);
 	}

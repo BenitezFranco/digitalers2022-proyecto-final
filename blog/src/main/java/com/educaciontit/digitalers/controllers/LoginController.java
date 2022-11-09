@@ -67,15 +67,8 @@ public class LoginController {
 
 	@GetMapping(value = { "/signOff/{email}" })
 	public ResponseEntity<?> signOff(@PathVariable(name = "email", required = true) String email) {
-		User user= userRepository.findByEmail(email).orElse(null);
-		if (user == null) {
-			return ResponseEntity.status(404).body(
-					responseMessageService.getResponseMessage(MessageType.NO_ELEMENTS, "Credenciales Incorrectas"));
-		} else if (user.getFailedAttemps() > 2) {
-			return ResponseEntity.status(404)
-					.body(responseMessageService.getResponseMessage(MessageType.USER_BLOCKED, "Usuario Bloqueado"));
-		}
-		return ResponseEntity.ok(loginService.outLogin(email));
+		
+		return null;
 	}
 
 }

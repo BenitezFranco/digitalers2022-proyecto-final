@@ -90,26 +90,4 @@ public class LoginService {
 		return null;
 	}
 
-	public boolean outLogin(String email) {
-		boolean band = false;
-		Login login= null;
-		
-		UUID[] keys= (UUID[]) loggedUsers.keySet().toArray();
-		for(int i=0;i<keys.length;i++) {
-			login=loggedUsers.get(keys[i]);
-			band= login.getEmail().equals(email);
-			if(band) {
-				break;
-			}
-			login=null;
-		}
-		
-		if(login!=null) {
-			logger.info(login);
-			loggedUsers.remove(login.getUuid());
-			band=true;
-		}
-		
-		return band;
-	}
 }
