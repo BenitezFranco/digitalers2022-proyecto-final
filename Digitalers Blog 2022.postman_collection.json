@@ -1,0 +1,386 @@
+{
+	"info": {
+		"_postman_id": "6fbfa6dc-f807-4219-976d-6a373ecb9731",
+		"name": "Digitalers Blog 2022",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23228581"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Find by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_DESA}}/users/findByID/1",
+							"host": [
+								"{{URL_DESA}}"
+							],
+							"path": [
+								"users",
+								"findByID",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_DESA}}/users/findAll",
+							"host": [
+								"{{URL_DESA}}"
+							],
+							"path": [
+								"users",
+								"findAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Insert",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"user4@gmail.com\",\r\n    \"key\": \"1234\",\r\n    \"active\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_DESA}}/users/insert",
+							"host": [
+								"{{URL_DESA}}"
+							],
+							"path": [
+								"users",
+								"insert"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "credential",
+								"value": "{{UUID_DESA}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"user1@gmail.com\",\r\n    \"key\": \"123456\",\r\n    \"active\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_DESA}}/users/update",
+							"host": [
+								"{{URL_DESA}}"
+							],
+							"path": [
+								"users",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":1,\r\n    \"mail\":\"user1@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_DESA}}/users/delete/",
+							"host": [
+								"{{URL_DESA}}"
+							],
+							"path": [
+								"users",
+								"delete",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Sign In",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var res = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"UUID_DESA\",res.uuid);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"user1@gmail.com\",\r\n    \"key\": \"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_DESA}}/login/signIn",
+							"host": [
+								"{{URL_DESA}}"
+							],
+							"path": [
+								"login",
+								"signIn"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Publications",
+			"item": [
+				{
+					"name": "Find All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_DESA}}/publications/findAll",
+							"host": [
+								"{{URL_DESA}}"
+							],
+							"path": [
+								"publications",
+								"findAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find By User Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_DESA}}/publications/findByUserId/{{UUID_DESA}}",
+							"host": [
+								"{{URL_DESA}}"
+							],
+							"path": [
+								"publications",
+								"findByUserId",
+								"{{UUID_DESA}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find  by Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_DESA}}/publications/findByID/1",
+							"host": [
+								"{{URL_DESA}}"
+							],
+							"path": [
+								"publications",
+								"findByID",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Insert",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "credential",
+								"value": "{{UUID_DESA}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Titulo 1\",\r\n    \"body\": \"hola mundo\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_DESA}}/publications/insert",
+							"host": [
+								"{{URL_DESA}}"
+							],
+							"path": [
+								"publications",
+								"insert"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "credential",
+								"value": "{{UUID_DESA}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \r\n    \"id\":6,\r\n    \"title\": \"Titulo 1\",\r\n    \"body\": \"hola mundo\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_DESA}}/publications/delete",
+							"host": [
+								"{{URL_DESA}}"
+							],
+							"path": [
+								"publications",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sign Off",
+			"item": [
+				{
+					"name": "Sign Off",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL_DESA}}/signOff/{{UUID_DESA}}",
+							"host": [
+								"{{URL_DESA}}"
+							],
+							"path": [
+								"signOff",
+								"{{UUID_DESA}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ping",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL_DESA}}/ping",
+					"host": [
+						"{{URL_DESA}}"
+					],
+					"path": [
+						"ping"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "URL_DESA",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "UUID_DESA",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
