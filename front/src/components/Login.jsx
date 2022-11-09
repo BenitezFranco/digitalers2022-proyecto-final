@@ -62,8 +62,6 @@ export default class Login extends Component {
         this.cleanValues();
     }
 
-
-
     render() {
         return (
             <>
