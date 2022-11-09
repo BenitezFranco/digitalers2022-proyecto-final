@@ -16,8 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.educaciontit.digitalers.entities.Publication;
+import com.educaciontit.digitalers.entities.User;
 import com.educaciontit.digitalers.enums.MessageType;
+import com.educaciontit.digitalers.exceptions.ExceptionDTO;
 import com.educaciontit.digitalers.repositories.PublicationRepository;
+import com.educaciontit.digitalers.services.LoginService;
 import com.educaciontit.digitalers.services.ResponseMessageService;
 
 @RestController
@@ -28,7 +31,10 @@ public class PublicationController implements GenericRestController<Publication,
 	private PublicationRepository publicationRepository;
 	@Autowired
 	private ResponseMessageService responseMessageService;
-
+	
+	@Autowired
+	private LoginService loginService;
+	
 	public ResponseEntity<?> findById(Long id) {
 
 		logger.info("ID : " + id);
@@ -42,18 +48,67 @@ public class PublicationController implements GenericRestController<Publication,
 	}
 
 	public ResponseEntity<?> insert(String uuid, @Valid Publication publication, BindingResult bindingResult) {
+		logger.info("credential :" + uuid);
 
-		return null;
+		if (uuid == null) {
+			return ResponseEntity.status(400).body(responseMessageService.getResponseMessage(MessageType.BAD_REQUEST,
+					"credential [" + uuid + "] No encontrada"));
+		}
+		User user = loginService.getUser(uuid);
+		if (user == null) {
+			return ResponseEntity.status(409).body(responseMessageService
+					.getResponseMessage(MessageType.VALIDATION_ERROR, "credential [" + uuid + "] No encontrada"));
+		}
+
+		publication.setUser(user);
+		user.getPublications().add(publication);
+		return save(publication,bindingResult);
 	}
 
 	public ResponseEntity<?> update(String uuid, @Valid Publication publication, BindingResult bindingResult) {
+		logger.info("credential :" + uuid);
 
-		return null;
+		if (uuid == null) {
+			return ResponseEntity.status(400).body(responseMessageService.getResponseMessage(MessageType.BAD_REQUEST,
+					"credential [" + uuid + "] No encontrada"));
+		}
+
+		if (!loginService.validateLogin(uuid)) {
+			return ResponseEntity.status(409).body(responseMessageService
+					.getResponseMessage(MessageType.VALIDATION_ERROR, "credential [" + uuid + "] No encontrada"));
+		}
+		return save(publication, bindingResult);
 	}
 
 	public ResponseEntity<?> delete(String uuid, @Valid Publication publication, BindingResult bindingResult) {
+		logger.info("credential :" + uuid);
 
-		return null;
+		if (uuid == null) {
+			return ResponseEntity.status(400).body(responseMessageService.getResponseMessage(MessageType.BAD_REQUEST,
+					"credential [" + uuid + "] No encontrada"));
+		}
+		User user= loginService.getUser(uuid);
+		if (user==null) {
+			return ResponseEntity.status(409).body(responseMessageService
+					.getResponseMessage(MessageType.VALIDATION_ERROR, "credential [" + uuid + "] No encontrada"));
+		}
+		if (bindingResult.hasErrors()) {
+			return ResponseEntity.status(400)
+					.body(responseMessageService.getResponseMessage(MessageType.VALIDATION_ERROR, bindingResult));
+		}
+		try {
+			publicationRepository.findByUserId(user.getId());
+		} catch (ExceptionDTO e) {
+			logger.error(e);
+			return ResponseEntity.status(404).body(
+					responseMessageService.getResponseMessage(MessageType.NO_ELEMENTS, publication + " No encontrada"));
+		}
+		
+		publicationRepository.delete(publication);
+		user.getPublications().remove(publication);
+		return ResponseEntity.ok(
+				responseMessageService.getResponseMessage(MessageType.DELETE_ELEMENT, "Publicacion " + publication.getTitle()
+						+ " eliminada correctamente"));
 	}
 
 	public ResponseEntity<?> findAll() {
@@ -69,6 +124,18 @@ public class PublicationController implements GenericRestController<Publication,
 		List<Publication> publications = publicationRepository.findByUserId(id_user);
 		logger.info(publications);
 		return ResponseEntity.ok(publications);
+	}
+	
+	private ResponseEntity<?> save(Publication publication, BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			return ResponseEntity.status(400)
+					.body(responseMessageService.getResponseMessage(MessageType.VALIDATION_ERROR, bindingResult));
+		}
+		logger.info(publication);
+		publicationRepository.save(publication);
+
+
+		return ResponseEntity.ok(publication);
 	}
 
 }

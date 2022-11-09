@@ -8,10 +8,13 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.educaciontit.digitalers.entities.Login;
+import com.educaciontit.digitalers.entities.User;
+import com.educaciontit.digitalers.repositories.UserRepository;
 
 @Service
 public class LoginService {
@@ -24,6 +27,8 @@ public class LoginService {
 	private String type;
 	@Value("${login.credential}")
 	private String credential;
+	@Autowired
+	private UserRepository userRepository;
 
 	public Login getLogin(String email) {
 		UUID uuid = UUID.randomUUID();
@@ -59,4 +64,52 @@ public class LoginService {
 		return false;
 	}
 
+	public User getUser(String uuidHeader) {
+		UUID uuid = null;
+		try {
+			uuid = UUID.fromString(uuidHeader);
+		} catch (IllegalArgumentException e) {
+			return null;
+		}
+		Login login = loggedUsers.get(uuid);
+
+		logger.info(uuid);
+		logger.info(login);
+
+		if (login != null) {
+			LocalDateTime now = LocalDateTime.now();
+			Long timeSession = ChronoUnit.MILLIS.between(login.getCreationDate(), now);
+			logger.info(login.getCreationDate() + " - " + now + " : " + timeSession);
+			if (timeSession <= expiresIn) {
+				login.setCreationDate(now);
+				User user = userRepository.findByEmail(login.getEmail()).orElse(null);
+				return user;
+			}
+			loggedUsers.remove(uuid);
+		}
+		return null;
+	}
+
+	public boolean outLogin(String email) {
+		boolean band = false;
+		Login login= null;
+		
+		UUID[] keys= (UUID[]) loggedUsers.keySet().toArray();
+		for(int i=0;i<keys.length;i++) {
+			login=loggedUsers.get(keys[i]);
+			band= login.getEmail().equals(email);
+			if(band) {
+				break;
+			}
+			login=null;
+		}
+		
+		if(login!=null) {
+			logger.info(login);
+			loggedUsers.remove(login.getUuid());
+			band=true;
+		}
+		
+		return band;
+	}
 }
