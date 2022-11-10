@@ -45,7 +45,6 @@ export default class MyPublication extends Component {
             })
             .catch(error => {
                 console.error(error);
-                localStorage.clear();
                 alert("Credenciales incorrectas");
             });
     }

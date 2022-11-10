@@ -32,7 +32,6 @@ export default class FindPublication extends Component {
             .then(json => this.setState({ publications: json }))
             .catch(error => {
                 console.error(error);
-                localStorage.clear();
             })
             .finally(() => console.info(this.state.publications));
     }
