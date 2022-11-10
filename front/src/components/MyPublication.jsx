@@ -1,7 +1,7 @@
 import React from 'react';
 import { Component } from 'react';
 
-
+import '../resources/css/publication.css';
 
 export default class MyPublication extends Component {
 
@@ -54,12 +54,14 @@ export default class MyPublication extends Component {
         return(
             <>
                 <body>
-                <text>
-                    <h2>{this.state.title}</h2>
+                <div className='text'>
+                        <text >
+                    <h1 >{this.state.title}</h1>
                     <h3> {this.state.body}</h3>
-                </text>
+                        </text>
+                    </div>
                 </body>
-                <div>
+                <div className='button'>
                     <button onClick={this.deletePublication}> Borrar Publicacion</button>
                 </div>
             </>

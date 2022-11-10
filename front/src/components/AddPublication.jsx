@@ -15,12 +15,12 @@ export default class AddPublication extends Component{
 
     setValueTitle = (event) => {
         this.setState({
-                title:event.target.value
+                title:event.target.title
         });
     }
     setValueBody = (event) => {
         this.setState({
-                body:event.target.value
+                body:event.target.body
         });
     }
 
@@ -32,9 +32,7 @@ export default class AddPublication extends Component{
             }
         );
     }
-    componentDidMount() {
-        this.add();
-    }
+
 
     add =(event) =>{
         const url = "http://localhost:8080/publications/insert";
@@ -54,9 +52,7 @@ export default class AddPublication extends Component{
         fetch(url,header)
         .then(json=>{
             console.log(json)
-            if (json.status == 200) {
                 window.location.href="/mypublications";
-            }
         })
         .catch(error=>{
             console.error(error);

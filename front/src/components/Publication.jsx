@@ -1,7 +1,7 @@
 import React from 'react';
 import { Component } from 'react';
 
-
+import '../resources/css/publication.css';
 
 export default class Publication extends Component {
 
@@ -19,10 +19,12 @@ export default class Publication extends Component {
         return(
             <>
                 <body>
-                <text>
-                    <h2>{this.state.title}</h2>
+                    <div className='text'>
+                        <text >
+                    <h1 >{this.state.title}</h1>
                     <h3> {this.state.body}</h3>
-                </text>
+                        </text>
+                    </div>
                 </body>
             </>
         );
