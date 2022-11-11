@@ -49,6 +49,8 @@ public class PublicationController implements GenericRestController<Publication,
 
 	public ResponseEntity<?> insert(String uuid, @Valid Publication publication, BindingResult bindingResult) {
 		logger.info("credential :" + uuid);
+		
+		logger.info("Publication :" + publication);
 
 		if (uuid == null) {
 			return ResponseEntity.status(400).body(responseMessageService.getResponseMessage(MessageType.BAD_REQUEST,
@@ -61,7 +63,7 @@ public class PublicationController implements GenericRestController<Publication,
 		}
 
 		publication.setUser(user);
-		user.getPublications().add(publication);
+		logger.info("Publication :" + publication);
 		return save(publication,bindingResult);
 	}
 

@@ -9,7 +9,7 @@ export default class AddPublication extends Component {
         super(props);
         this.state = {
             title: "",
-            texto: ""
+            body: ""
         }
     }
 
@@ -28,7 +28,7 @@ export default class AddPublication extends Component {
         );
     }
 
-    add = (event) => {
+    add = () => {
         const url = "http://localhost:8080/publications/insert";
         const publication = {
             title: this.state.title,
@@ -45,6 +45,7 @@ export default class AddPublication extends Component {
         fetch(url, header)
             .then(response => {
                 if (!response.ok) throw Error(response.status);
+                console.log(response);
                 return response.json();
             })
             .then(json => {
@@ -62,17 +63,17 @@ export default class AddPublication extends Component {
     render() {
         return (
             <>
-             <form role="form">
-                        <br styles="clear:both" />
-                        <div className="form-group">
-                            <input type="text" className="form-control" id="title" name="title" placeholder="Title" required />
-                        </div>
+                <form role="form" onSubmit={this.add}>
+                    <br styles="clear:both" />
+                    <div className="form-group">
+                        <input type="text" className="form-control" id="title" name="title" placeholder="Title" required value={this.state.title} onChange={this.setValues} />
+                    </div>
 
-                        <div className="form-group">
-                            <textarea className="form-control" type="textarea" id="subject" placeholder="Subject" maxlength="140" rows="7" ></textarea>
-                        </div>
-                        <button type="button" id="submit" name="submit" className="formButton" onClick={this.add}>Add Publication</button>
-                    </form>
+                    <div className="form-group">
+                        <textarea className="form-control" type="textarea" id="body" placeholder="Subject" maxlength="140" rows="7" value={this.state.body} onChange={this.setValues}></textarea>
+                    </div>
+                    <button type="submit" id="submit" name="submit" className="formButton">Add Publication</button>
+                </form>
             </>
         )
     }

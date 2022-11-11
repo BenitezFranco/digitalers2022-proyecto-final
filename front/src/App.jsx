@@ -28,7 +28,7 @@ export default class App extends Component {
         return (
             <BrowserRouter>
 
-                <nav class="menu">
+                <nav className="menu">
                     <NavLink className="enlace" to="/" >Principal</NavLink>
 
                     <NavLink className="enlace" to="/publications" >Publicaciones</NavLink>
