@@ -16,6 +16,11 @@ export default class FindPublication extends Component {
         this.getAll();
     }
 
+    signOff=()=>{
+        localStorage.clear();
+        window.location.href="/";  
+}
+
     getAll = (event) => {
         const url = "http://localhost:8080/publications/findAll";
         const header = {
@@ -39,25 +44,26 @@ export default class FindPublication extends Component {
     }
 
     render() {
-        return (
-                    
-                        <ul className="grid-layout" >
-                            {
-                                this.state.publications.map(
-                                    elem => (
-                                        <Publication
-                                            id={elem.id}
-                                            title={elem.title}
-                                            body={elem.body}
-                                        />
-                                    )
-                                    
-                                )
-                            }
-                        <div className="grid-login">{<Login/>}</div>
-                        </ul>
-                    
-        )
-    }
+            return (
+                <ul className="grid-layout" >
+                    {
+                        this.state.publications.map(
+                            elem => (
+                                <Publication
+                                    id={elem.id}
+                                    title={elem.title}
+                                    body={elem.body}
+                                />
+                            )
 
+                        )
+                    }
+                    { localStorage.length==0 &&
+                    <div className="grid-login">{<Login />}</div>}
+                    { localStorage.length>0 &&
+                    <div className="grid-login"><button type="button" class="btn btn-outline-danger" onClick={this.signOff}>Cerrar Sesion</button></div>}
+                    
+                </ul>
+            )
+    }
 }

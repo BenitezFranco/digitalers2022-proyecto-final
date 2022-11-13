@@ -18,11 +18,6 @@ export default class App extends Component {
     printUUID=()=>{
         console.log(localStorage);
     }
-
-    signOff=()=>{
-            localStorage.clear();
-            window.location.href="/";
-    }
     
 
     render() {
@@ -35,9 +30,7 @@ export default class App extends Component {
 
                     <NavLink className="enlace" to="/mypublications" >Mis Publicaciones</NavLink>
 
-                    <NavLink className="enlace" to="/createpublication" >Crear Publicacion</NavLink>   
-
-                    <NavLink className="enlace" to="/signoff" >Cerrar Sesion</NavLink> 
+                    <NavLink className="enlace" to="/createpublication" >Crear Publicacion</NavLink> 
 
                     <NavLink className="enlace" to="/createuser" >Crear usuario</NavLink>
 
@@ -52,8 +45,6 @@ export default class App extends Component {
 
                     <Route path="/createpublication" element={<AddPublication />} />
 
-                    <Route path="/signoff" element={<button type="button" class="btn btn-outline-danger" onClick={this.signOff}>Cerrar Sesion</button>} />
-                    
                     <Route path="/createuser" element={<AddUser />} />
 
                     <Route path="/comments" element={<button onClick={this.printUUID}>Mostrar UUID</button>} />
