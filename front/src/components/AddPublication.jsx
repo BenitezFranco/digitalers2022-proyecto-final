@@ -46,6 +46,7 @@ export default class AddPublication extends Component {
             .then(response => {
                 if (!response.ok) throw Error(response.status);
                 console.log(response);
+                window.location.href = "/mypublications";
                 return response.json();
             })
             .then(json => {
@@ -58,6 +59,7 @@ export default class AddPublication extends Component {
             })
         this.cleanValues();
     }
+    
     render() {
         return (
             <>

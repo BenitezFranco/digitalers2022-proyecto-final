@@ -39,7 +39,7 @@ export default class MyPublication extends Component {
             )
             .then(json => {
                 console.log(json);
-                window.location.href = "/publications";
+                window.location.href = "/mypublications";
             })
             .catch(error => {
                 console.error(error);
