@@ -14,48 +14,50 @@ export default class App extends Component {
     constructor(props) {
         super(props);
     }
-    
-    printUUID=()=>{
+
+    printUUID = () => {
         console.log(localStorage);
     }
-    
+
 
     render() {
         return (
             < div className="App">
-            <BrowserRouter>
+                <BrowserRouter>
 
-                <nav className="menu">
-                    <NavLink className="enlace" to="/" >Principal</NavLink>
+                    <nav className="menu">
+                        <NavLink className="enlace" to="/" >Principal</NavLink>
+                        {localStorage.length != 0 &&
+                            <NavLink className="enlace" to="/mypublications" >Mis Publicaciones</NavLink>
+                        }
+                        {localStorage.length != 0 &&
+                            <NavLink className="enlace" to="/createpublication" >Crear Publicacion</NavLink>
+                        }
+                        {localStorage.length == 0 &&
+                            <NavLink className="enlace" to="/createuser" >Crear usuario</NavLink>
+                        }
+                        <NavLink className="enlace" to="/comments" >Comentarios</NavLink>
+                    </nav>
 
-                    <NavLink className="enlace" to="/mypublications" >Mis Publicaciones</NavLink>
 
-                    <NavLink className="enlace" to="/createpublication" >Crear Publicacion</NavLink> 
-                    { localStorage.length==0 &&
-                    <NavLink className="enlace" to="/createuser" >Crear usuario</NavLink>
-                    }
-                    <NavLink className="enlace" to="/comments" >Comentarios</NavLink>
-                </nav>
+                    <Routes>
+                        <Route path="/" element={<FindPublication />} />
 
+                        <Route path="/mypublications" element={<FindMyPublication />} />
 
-                <Routes>
-                    <Route path="/" element={<FindPublication />} />
+                        <Route path="/createpublication" element={<AddPublication />} />
 
-                    <Route path="/mypublications" element={<FindMyPublication/>}/>
+                        <Route path="/createuser" element={<AddUser />} />
 
-                    <Route path="/createpublication" element={<AddPublication />} />
+                        <Route path="/comments" element={<button onClick={this.printUUID}>Mostrar UUID</button>} />
 
-                    <Route path="/createuser" element={<AddUser />} />
+                        <Route path="*" element={<NotFound />} />
 
-                    <Route path="/comments" element={<button onClick={this.printUUID}>Mostrar UUID</button>} />
-                    
-                    <Route path="*" element={<NotFound />} />
-                    
-                    <Route />
-                </Routes>
+                        <Route />
+                    </Routes>
 
-            </BrowserRouter>
-        </div>
+                </BrowserRouter>
+            </div>
         );
     }
 }
