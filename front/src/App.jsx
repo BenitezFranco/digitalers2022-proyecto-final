@@ -31,9 +31,9 @@ export default class App extends Component {
                     <NavLink className="enlace" to="/mypublications" >Mis Publicaciones</NavLink>
 
                     <NavLink className="enlace" to="/createpublication" >Crear Publicacion</NavLink> 
-
+                    { localStorage.length==0 &&
                     <NavLink className="enlace" to="/createuser" >Crear usuario</NavLink>
-
+                    }
                     <NavLink className="enlace" to="/comments" >Comentarios</NavLink>
                 </nav>
 

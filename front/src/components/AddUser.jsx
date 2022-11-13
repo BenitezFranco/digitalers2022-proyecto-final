@@ -65,6 +65,7 @@ export default class AddUser extends Component{
     render() {
         return (
             <div className="">
+                { localStorage.length==0 &&
                 <form onSubmit={this.add} >
                     <input
                         type="email"
@@ -86,11 +87,12 @@ export default class AddUser extends Component{
                         value={this.state.key}
                         onChange={this.setValues}
                     />
+                    
                     <div>
                         <button type="submit" class="btn btn-outline-primary">Crear</button>
                         <button type="reset" class="btn btn-outline-secondary" onClick={this.cleanValues}>Limpiar</button>
                     </div>
-                </form>
+                </form>}
             </div>
         );
     }

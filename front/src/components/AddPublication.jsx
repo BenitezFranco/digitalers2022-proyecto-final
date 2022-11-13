@@ -58,8 +58,6 @@ export default class AddPublication extends Component {
             })
         this.cleanValues();
     }
-
-
     render() {
         return (
             <>
