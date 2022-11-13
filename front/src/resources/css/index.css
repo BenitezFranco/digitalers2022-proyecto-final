@@ -1,0 +1,7 @@
+.index{
+    font-family: 'Oxygen', sans-serif;
+    background: rgb(2,0,36);
+    background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(9,42,121,1) 28%, rgba(0,212,255,1) 66%);
+    height: auto;
+    background-size: cover;
+}

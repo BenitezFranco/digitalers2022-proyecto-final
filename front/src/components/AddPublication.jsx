@@ -72,7 +72,7 @@ export default class AddPublication extends Component {
                     <div className="form-group">
                         <textarea className="form-control" type="textarea" id="body" placeholder="Subject" maxlength="140" rows="7" value={this.state.body} onChange={this.setValues}></textarea>
                     </div>
-                    <button type="submit" id="submit" name="submit" className="formButton">Add Publication</button>
+                    <button type="submit" id="submit" name="submit" className="formButton" class="btn btn-outline-secondary">Add Publication</button>
                 </form>
             </>
         )

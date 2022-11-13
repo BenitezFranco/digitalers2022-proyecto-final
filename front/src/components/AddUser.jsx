@@ -1,8 +1,7 @@
 import React from "react";
 import { Component } from "react";
 
-
-export default class Login extends Component {
+export default class AddUser extends Component{
     constructor(props) {
         super(props);
         this.state = {
@@ -11,9 +10,10 @@ export default class Login extends Component {
         }
     }
 
+
     setValues = (event) => {
         this.setState({
-            [event.target.id]: event.target.value
+            [event.target.name]: event.target.value
         });
     }
 
@@ -26,14 +26,15 @@ export default class Login extends Component {
         );
     }
 
-    signIn = (event) => {
-        event.preventDefault();
+    add=(event) =>{
 
-        const url = "http://localhost:8080/login/signIn";
+        const url = "http://localhost:8080/users/insertNewUser";
         const user = {
             email: this.state.email,
-            key: this.state.key
+            key: this.state.key,
+            active: true
         }
+
         const header = {
             method: "POST",
             body: JSON.stringify(user),
@@ -45,19 +46,18 @@ export default class Login extends Component {
         fetch(url, header)
             .then(response => {
                 if (!response.ok) throw Error(response.status);
+                console.log(response);
                 return response.json();
-            }
-            )
+            })
             .then(json => {
                 console.log(json);
-                localStorage.uuid = json.uuid;
-                localStorage.credential = json.credential;
                 window.location.href="/";
             })
             .catch(error => {
                 console.error(error);
                 localStorage.clear();
-                alert("Credenciales Incorrectas");
+                alert("No se pudo registrar al usuario");
+                
             });
         this.cleanValues();
     }
@@ -65,7 +65,7 @@ export default class Login extends Component {
     render() {
         return (
             <div className="">
-                <form onSubmit={this.signIn} >
+                <form onSubmit={this.add} >
                     <input
                         type="email"
                         id="email"
@@ -87,11 +87,13 @@ export default class Login extends Component {
                         onChange={this.setValues}
                     />
                     <div>
-                        <button type="submit" class="btn btn-outline-primary">Ingresar</button>
-                        <button type="reset"  class="btn btn-outline-secondary" onClick={this.cleanValues}>Limpiar</button>
+                        <button type="submit" class="btn btn-outline-primary">Crear</button>
+                        <button type="reset" class="btn btn-outline-secondary" onClick={this.cleanValues}>Limpiar</button>
                     </div>
                 </form>
             </div>
         );
     }
+
+
 }

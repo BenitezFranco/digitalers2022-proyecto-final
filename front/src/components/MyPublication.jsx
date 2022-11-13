@@ -1,8 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
 
-import '../resources/css/publication.css';
-
 export default class MyPublication extends Component {
 
     constructor(props) {
@@ -49,19 +47,17 @@ export default class MyPublication extends Component {
             });
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <>
-                <body>
-                <div className='text'>
-                        <text >
-                    <h1 >{this.state.title}</h1>
-                    <h3> {this.state.body}</h3>
-                        </text>
+                <div className='card bg-info'>
+                    <div className='card-body'>
+                        <h4 className='card-header' >{this.state.title}</h4>
+                        <p className='card-text'> {this.state.body}</p>
                     </div>
-                </body>
-                <div className='button'>
-                    <button onClick={this.deletePublication}> Borrar Publicacion</button>
+                    <a className="btn btn-outline-secondary rounded-0" onClick={this.deletePublication}>
+                        Borrar Publicacion
+                    </a>
                 </div>
             </>
         );

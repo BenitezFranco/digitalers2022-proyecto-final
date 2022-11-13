@@ -1,7 +1,7 @@
 import React from "react";
 import { Component } from "react";
 import MyPublication from "./MyPublication";
-
+import '../resources/css/mypublication.css'
 export default class FindPublication extends Component {
 
     constructor(props) {
@@ -37,22 +37,20 @@ export default class FindPublication extends Component {
     }
     render(){
         return(
-            <>
-                <ul>
-                    {
-                        this.state.publications.map(
-                            elem =>(
-                                <MyPublication
-                                    id={elem.id}
-                                    title={elem.title}
-                                    body={elem.body}
-                                />
-                            )
-                        )
-
-                    }
-                </ul>
-            </>
+            <ul className="grid-layout" >
+            {
+                this.state.publications.map(
+                    elem => (
+                        <MyPublication
+                            id={elem.id}
+                            title={elem.title}
+                            body={elem.body}
+                        />
+                    )
+                    
+                )
+            }
+        </ul>
         )
     }
 }

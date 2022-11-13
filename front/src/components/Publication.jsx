@@ -1,8 +1,7 @@
 import React from 'react';
 import { Component } from 'react';
 
-import '../resources/css/publication.css';
-
+import '../resources/css/publication.css'
 export default class Publication extends Component {
 
     constructor(props) {
@@ -14,18 +13,15 @@ export default class Publication extends Component {
         }
     }
 
-
     render(){
         return(
             <>
-                <body>
-                    <div className='text'>
-                        <text >
-                    <h1 >{this.state.title}</h1>
-                    <h3> {this.state.body}</h3>
-                        </text>
-                    </div>
-                </body>
+                        <div className ='card bg-info'>
+                            <div className='card-body'>
+                            <h4 className ='card-header'>{this.state.title}</h4>
+                            <p className ='card-text'> {this.state.body}</p>
+                            </div>
+                        </div>
             </>
         );
     }
